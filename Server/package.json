@@ -1,0 +1,26 @@
+{
+  "name": "Kibblecobber",
+  "version": "1.0.0",
+  "description": "DogFood",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "YOUR NAME HERE",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.2.0",
+    "pg": "^7.5.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.39.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
