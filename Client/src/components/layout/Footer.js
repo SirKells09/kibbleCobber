@@ -1,9 +1,6 @@
 import React from 'react'
 import { Container,Row,ButtonGroup,Button,Col } from 'reactstrap'
-import {
-    Route,
-    Link,
-    Switch, }from 'react-router-dom'
+
 
 class Footer extends React.Component {
     render(){

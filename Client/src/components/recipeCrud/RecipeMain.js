@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Col, Row } from 'reactstrap';
 import RecipeTable from './RecipeTable'
 import {AuthContext} from "../auth/AuthContext"
+import APIURL from '../../helpers/environment';
 
 class RecipeMain extends React.Component {
     constructor(props) {
@@ -22,7 +23,7 @@ class RecipeMain extends React.Component {
             this.fetchRecipes()
         }
         fetchRecipes = () => {
-            fetch("http://localhost:3000/recipe/getall",{
+            fetch(`${APIURL}/recipe/getall`,{
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

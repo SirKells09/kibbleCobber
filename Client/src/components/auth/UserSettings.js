@@ -2,8 +2,7 @@ import React from 'react'
 import {Card, CardTitle, CardText, Col, Row, Container, Button, Input, Label} from 'reactstrap'
 import {AuthContext} from './AuthContext'
 import AccModal from '../modals/AccModal'
-
-
+import APIURL from '../../helpers/environment';
 class UserSettings extends React.Component {
     constructor(props) {
         super(props)
@@ -15,7 +14,7 @@ class UserSettings extends React.Component {
         
     }
     fetchUsers = () => {
-        fetch('http://localhost:3000/user/get', {
+        fetch(`${APIURL}/user/get`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -31,10 +30,8 @@ class UserSettings extends React.Component {
 
     deleteUser = event => {
         console.log(event)
-        fetch(`http://localhost:3000/user/delete`, {
+        fetch(`${APIURL}/user/delete`, {
             method: 'DELETE',
-            // mode: 'NO-CORS',
-            // body: JSON.stringify({ user: { id: event.body.id } }),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Authorization': this.props.auth.sessionToken
