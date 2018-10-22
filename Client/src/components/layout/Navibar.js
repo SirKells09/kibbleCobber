@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Row, Col, Button, Navbar,} from 'reactstrap'
+import {Container, Button,ButtonToolbar,ButtonGroup, Col} from 'reactstrap'
 
 import {
     Route,
@@ -8,51 +8,58 @@ import {
 
    
 import UnhealthyDog from "../tables/UnhealthyFood";
-import DailyCalorie from "../tables/DailyCalorie";
-import NewFood from "../tables/NewFood";
 import UserSettings from '../auth/UserSettings';
-import RecipeSearch from '../recipe/RecipeSearch'
+import RecipeMain from '../recipeCrud/RecipeMain'
 import {AuthContext} from '../auth/AuthContext'
+import Auth from '../auth/Auth'
 
 class Navibar extends React.Component{
+        
+
     render(){
         return(
+           
 
- 
+<div>
+        <Container>
+            <Col className="navbar">
 
-    <div >
- <Container className='navbar' color>
-        
-    <Row>
-  <Navbar >
-    <Button className='navButton' color=""><Link to="/RecipeSearch">Recipe Search</Link></Button>
+       
+            
+
     
-    <Button className='navButton' color=""><Link to="/UnhealthyDog">Unhealthy Choices</Link></Button>
+    <Button className='navButton' color="warning" bsSize="lg"><Link to="/Auth">LOGIN/SIGNUP</Link></Button>
+
+    <Button className='navButton' color="warning"><Link to="/RecipeMain">Recipes</Link></Button>
+            
+    
+    <Button className='navButton' color="warning"><Link to="/UnhealthyDog">Unhealthy Choices</Link></Button>
    
-    <Button className='navButton'  color=""><Link to="/DailyCalorie">Daily Calorie Intake</Link></Button>
     
-    <Button className='navButton'  color=""><Link to="/NewFood">Food Transition Chart</Link></Button>
+    <Button className='navButton'  color="warning"><Link to="/UserSettings">User Settings</Link></Button>
+   
 
-    <Button className='navButton'  color=""><Link to="/UserSettings">User Settings</Link></Button>
-    </Navbar>
-    </Row>
-      </Container>
-      <Container>
-    <div className="naviResults">
-     <Col >
- <Row>
+            </Col>
+        </Container>
+
+
+
+<Container>
+ 
     <Switch>
-        <Route path="/RecipeSearch" exact={true}><RecipeSearch /></Route>
+        <Route path="/Auth" exact={true}><Auth/></Route>
+        <Route path="/RecipeMain" ><RecipeMain /></Route>
         <Route path="/UserSettings" ><UserSettings /></Route>
         <Route path="/UnhealthyDog"><UnhealthyDog /></Route>
-        <Route path="/DailyCalorie"><DailyCalorie /></Route>
-        <Route path="/NewFood"><NewFood /></Route>
     </Switch>
-    </Row>
-    </Col>
-    </div>
-    </Container>
-    </div>
+
+  
+   </Container>
+       
+       </div>
+        
+ 
+    
              )
         }
             }

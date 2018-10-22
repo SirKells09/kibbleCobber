@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, FormGroup, Label, Input, Button, Container, Col, Row } from 'reactstrap';
+import { Form, FormGroup,  Input, Button, Container, Col, Row } from 'reactstrap';
 import {AuthContext} from './AuthContext'
 import APIURL from '../../helpers/environment'
 
@@ -22,7 +22,7 @@ class Signup extends Component {
               
               
                 handleSubmit = event => {
-                  fetch(`${APIURL}/user/create`, {
+                  fetch(`${APIURL}/user/create`,{
                     method: "POST",
                     body: JSON.stringify({ 
                       firstname: this.state.firstname,
@@ -31,14 +31,14 @@ class Signup extends Component {
                       password: this.state.password
                     }),
                     headers: {
-                      "Content-Type": "application/json"
+                      "Content-Type": "application/json",
                     }
                   })
-                    .then(response => response.json())
-                    .then(data => {
-                      console.log(data)
-                      this.props.auth.setToken(data.sessionToken);
-                    });
+                  .then(response => response.json())
+                  .then(data => {
+                    console.log(data)
+                    this.props.auth.setToken(data.sessionToken);
+                  });
                   event.preventDefault();
                 };
               
@@ -51,12 +51,11 @@ class Signup extends Component {
                       <Row form>
                       <Col md={6}>
                         <FormGroup>
-                          <Label for="firstname">first name</Label>
                           <Input
                             id="firstname"
                             type="text"
                             name="firstname"
-                            placeholder="enter first name here"
+                            placeholder="First Name"
                             bsSize="sm"
                             onChange={this.handleChange}
                           />
@@ -64,12 +63,11 @@ class Signup extends Component {
                         </Col>
                         <Col>
                         <FormGroup>
-                          <Label for="lastname">last name</Label>
                           <Input
                             id="lastname"
                             type="text"
                             name="lastname"
-                            placeholder="enter last name here"
+                            placeholder="Last Name"
                             bsSize="sm"
                             onChange={this.handleChange}/>
                         </FormGroup>
@@ -78,31 +76,30 @@ class Signup extends Component {
                         <Row form>
                         <Col md={6}>
                         <FormGroup >
-                          <Label for="email">email</Label>
                           <Input
                             id="email"
                             type="text"
                             name="email"
-                            placeholder="enter email here"
+                            placeholder="Email"
                             bsSize="sm"
                             onChange={this.handleChange}/>
                         </FormGroup>
                         </Col>
                         <Col>
                         <FormGroup>                       
-                          <Label for="password">Password</Label>
                           <Input
                             id="su_password"
                             type="password"
                             name="password"
-                            placeholder="enter password here"
+                            minLength="6" required
+                            placeholder="Password: 6 characters minimum"
                             bsSize="sm"
                             onChange={this.handleChange}/>
                         </FormGroup>
                         </Col>
                         </Row>
                         <FormGroup>
-                        <Button color="primary" type="submit">submit</Button>
+                        <Button color="primary" type="submit" >submit</Button>
                         </FormGroup>
                       </Form>
             

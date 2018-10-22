@@ -1,81 +1,66 @@
  import React from 'react';
  import {Container, Row, Col, Table,} from 'reactstrap'
+ import APIURL from '../../helpers/environment'
 
 class UnhealthyFood extends React.Component {
+    constructor(props){
+        super(props) 
+            this.state={
+                badFood: []
+            }
+        
+    }
+    componentDidMount() {
+        this.fetchBadFoods();
+      }
+
+
+    fetchBadFoods = () => {
+        fetch(`${APIURL}/unhealthy/getall`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": this.props.sessionToken
+          }
+        }
+        )
+          .then(response => response.json())
+          .then((foodData) => {
+            return this.setState({ badFood:foodData })
+          })
+      }
     render() {
         return(
-
- <Container>
-     <Row>
+        
+<div>
           <h3> Unhealthy Choices for youe dog</h3>
           <Table striped hover>
           <thead>
+         <tr>
           <th> # </th>
-          <th> Unhelathy Choice</th>
+          <th> Unhelathy Food</th>
           <th> Reasoning </th>
-         
+         <th></th>
+         </tr>
       </thead>
-<tbody>
-<tr>
-    <th scope="row">1</th>
-        <td></td>
-        <td></td>
-       
-    </tr>
-    <tr>
-    <th scope="row">3</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-    <th scope="row">4</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-    <th scope="row">5</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-    <th scope="row">6</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-    <th scope="row">7</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-    <th scope="row">8</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-    <th scope="row">9</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-    <th scope="row">10</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-    <th scope="row">11</th>
-        <td></td>
-        <td></td>
-    </tr>
+<tbody>{
+    this.state.badFood.map((badFood, id)=> {
+        return( 
+             <tr key={id}>
+            <th scope="row">{badFood.id}</th>
+            <th >{badFood.badFood}</th>
+            <th >{badFood.reason}</th>
+           
+                </tr>
+
+        )
+    })
+}
 
 </tbody>
+</Table>
+</div>
 
-     
-      </Table>
-    
-
-     </Row>
-        </Container>
         )
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Jumbotron, Button, Container, Row } from 'reactstrap';
+import { Jumbotron,  Col } from 'reactstrap'
 
 
 class Jumbo extends React.Component{
@@ -8,16 +8,13 @@ class Jumbo extends React.Component{
   return (
     
     <div className="main">
-    <Container>
       <Jumbotron className="jumbo">
-        <Row>
+        <Col>
         <h1 className="display-2">KibbleCobber!</h1>
         <p className="lead">Your Loyal Companion Deserves Wholesome And Nourshing Dishes.</p>
-        <p>Become a member, share your own Recipes and Ideas with out community! </p>
-        {/* <hr className="my-2" /> */}
-        </Row>
+        <p>Become a member to share your own Recipes and Ideas with our community! </p>
+        </Col>
       </Jumbotron>
-      </Container>
     </div>
     
   );

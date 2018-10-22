@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-
-    const Recipe = sequelize.define('recipe', {
+    return sequelize.define('recipe', {
         recipeName: {
         type: DataTypes.STRING,
         allowNull: false
@@ -13,14 +12,13 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.INTEGER,
          allowNull: false
         },    
-        yield: {
+        amount: {
         type: DataTypes.INTEGER,
         allowNull: false
         },
-        calPerCup: {
-            type: DataTypes.INTEGER,
+        notes: {
+            type: DataTypes.STRING,
             allowNull: false
         }
     })
-    return Recipe
 }

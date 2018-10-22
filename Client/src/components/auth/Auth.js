@@ -1,9 +1,8 @@
 import React from 'react';
-import {Container, Row, Col} from 'reactstrap'
+import {Container} from 'reactstrap'
 import Login from './Login'
 import Signup from './Signup'
 import {AuthContext} from './AuthContext'
-
 
 
 class Auth extends React.Component  {
@@ -14,13 +13,10 @@ class Auth extends React.Component  {
        
 
       }
-    }
-
-  
-    changeUserStatus = () => this.setState({ isUser: !this.state.isUser})
+  }
+changeUserStatus = () => this.setState({ isUser: !this.state.isUser})
     
-  
-    authViewShow = () => {
+authViewShow = () => {
       if (this.state.isUser) {
         return(
           <Login toggleForm= { this.changeUserStatus }/>
@@ -33,13 +29,18 @@ class Auth extends React.Component  {
     }
     render(){
         return(
+          <div>
+
     <Container className="authCon">
-        <Row>
-          <Col>
+  
           {this.authViewShow()}
-            </Col>
-        </Row>
-</Container>
+
+  
+      
+          </Container>
+          </div>
+         
+
     )
 }
 }

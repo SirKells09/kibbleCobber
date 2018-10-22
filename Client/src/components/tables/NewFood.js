@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Col, Row, Container} from 'reactstrap'
+import { Table, Container} from 'reactstrap'
 
 class NewFood extends React.Component {
     render(){

@@ -1,28 +1,36 @@
 import React from 'react'
-import { Container,Row,ButtonGroup,Button,Col } from 'reactstrap'
+import { Container,Row,Button,Col } from 'reactstrap'
+import {AuthContext} from '../auth/AuthContext'
+import APIURL from '../../helpers/environment'
+
 
 
 class Footer extends React.Component {
     render(){
         return(
-<div className='footer'>
+
 <Container >
         <Row>
             <Col sm="12" md={{ size: 6, offset: 3 }}>
                 <footer>
-                    <ButtonGroup >
+                    
                      <Button className='navButton' onClick={()=>this.props.clickLogout()}>Logout</Button>
-                     <Button className='navButton'>Need Help?</Button>
-                     </ButtonGroup>
+                     <Button className='navButton' href={`${APIURL}/UserSettings`}>Need Help?</Button>
+                    
                      </footer>
                 
             </Col>
           </Row>
 </Container>
-</div>
+
            
 
         )
     }
 }
-export default Footer
+export default props => (
+    <AuthContext.Consumer>
+      {auth => <Footer {...props} auth={auth} />}
+    </AuthContext.Consumer>
+  )
+  

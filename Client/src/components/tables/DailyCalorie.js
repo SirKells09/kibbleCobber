@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Row, Col, Table, } from 'reactstrap'
+import {Container, Table, } from 'reactstrap'
 
 class DailyCalorie extends React.Component {
     render(){
@@ -7,12 +7,11 @@ class DailyCalorie extends React.Component {
 // set up in multiple divs active dogs/moderatley active/not
         <Container>
         <h1>Daily Calorie Intake</h1>
-        <Table striped hover>
+        <Table>
       <thead>
 
     <th>Daily Calorie Intake</th>
     <th>Reasoning</th>
-    <th></th>
       </thead>
 <tbody>
 <tr>

@@ -1,115 +1,132 @@
 import React from 'react'
-import {Card, CardTitle, CardText, Col, Row, Container, Button, Input, Label} from 'reactstrap'
-import {AuthContext} from './AuthContext'
+import { Card, CardTitle, CardText, Col, Row, Container, Button, Input, Label } from 'reactstrap'
+import { AuthContext } from './AuthContext'
 import AccModal from '../modals/AccModal'
+import EmailModal from '../modals/AccModal'
 import APIURL from '../../helpers/environment';
+
 class UserSettings extends React.Component {
     constructor(props) {
         super(props)
-        this.state={
-                peps: [],
-                id: "",
-                modal: false
+        this.state = {
+            user: [],
+            id: "",
+            modal: false,
+            email: ""
         }
-        
+
     }
+   
+
+    toggle = () => {
+        this.setState({
+            modal: !this.state.modal
+        });
+    }
+    onTodoChange(value) {
+        this.setState({
+            email: value
+        });
+    }
+
+    // handleChange = (event) => {
+    //     console.log(this.state)
+    //     this.setState({
+    //         [event.target.name]: event.target.value
+    //     })
+    // }
+
     fetchUsers = () => {
         fetch(`${APIURL}/user/get`, {
             method: 'GET',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-            //   'Authorization': this.props.auth.sessionToken
-            })
         })
-     
-          .then((res) => res.json())
-            .then((peps) => {
-              return this.setState({ users: peps })
-            })
-        }
+            .then((response) => response.json())
+            .then((user) => {
+                return this.setState({ user: user, id: user.id })
 
-    deleteUser = event => {
-        console.log(event)
-        fetch(`${APIURL}/user/delete`, {
+            });
+        console.log(this.state)
+    }
+
+
+    deleteUser = (e) => {
+        console.log()
+        fetch(`${APIURL}/user/delete/${e.target.id}`, {
             method: 'DELETE',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': this.props.auth.sessionToken
-            })
+            body: JSON.stringify({ user: { email: e.target.id } }),
         })
-        .then((res) => this.fetchUsers())
-      }
-
-       toggle = () => {
-        this.setState({
-          modal: !this.state.modal
-        });
-      }
-
-      handleSubmit() {
-
-      }
-      
-      render(){
-          return(
-              
-              
-              <Container>
+            .then((response) => this.fetchUsers())
+    }
 
 
-              <AccModal show={this.state.modal} toggle={this.toggle} head="okeyDokey"/>
+
+    render() {
+        return (
 
 
-        <div className='userSettings'>
-    
-        <h1>Change Info</h1>
-            <Row>
-            <Col sm="12" md={{ size: 8, offset: 2 }}>
-            <Card body inverse color="info" className="text-center">
-                    <CardTitle>Email Us Anytime</CardTitle>
-                    <Label for="exampleEmail" sm={2}>Email</Label>
-            <Input type="email" name="email" id="exampleEmail" placeholder="Email" />
-          <Label for="password" sm={3}>Password</Label>
-            <Input type="password" name="password" id="examplePassword" placeholder="Secret Password" />
-          <Label for="password" sm={3}>Password</Label>
+            <Container>
+                <EmailModal head="Update You Info" />
 
-            <Input type="textarea" name="text" id="exampleText" />
-                    <CardText> Concerns, Questions, or Absolutely Anything!
-                    </CardText>
-                    <Button color="primary" variant='contained' size="lg" active>Email Customer Service</Button>{' '}
-            </Card >
-    </Col>
-    </Row>
-        <br/>
-                <Row>
-        <Col sm="6">
-                <Card body inverse color="warning" body className="text-center">
-                <CardTitle>Edit Account</CardTitle>
-                <Button onClick={this.toggle}>Change Info</Button>{' '}
-                <CardText> 
-                    </CardText>
-                </Card>
+                <AccModal show={this.state.modal} toggle={this.toggle} head="okeyDokey" />
 
 
-                </Col>  
-                <Col sm="6">
-                <Card body inverse color="danger" body className="text-center">
-                <CardTitle>Delete User</CardTitle>
-                <Button size='sm' onClick={this.deleteUser}>Delete User</Button>
-                <CardText> WHAT CAN WE HELP WITH?
-                    </CardText>
-                </Card>
-                </Col>
-                </Row>
+                <div className='userSettings'>
+
+                     <hr />
+                    <h1>Change Info</h1>
+                  <hr />
+                    <Row>
+                        <Col sm="12" md={{ size: 8, offset: 2 }}>
+                            <Card body inverse color="info" className="text-center">
+                                <CardTitle>Email Us Anytime</CardTitle>
+
+                                <CardText> Concerns, Questions, or Absolutely Anything!</CardText>
+                                <Button color="primary" variant='contained' size="lg" onClick={this.toggle2}>Email Customer Service</Button>{' '}
+                            </Card >
+                        </Col>
+                    </Row>
+                   
+                    <hr />
+                    <hr />
+                    <hr />
+           
+                    <Col sm="12" md={{ size: 8, offset: 2 }}>
+                        <Row>
+                            <Card body inverse color="warning" body className="text-center">
+                                <CardTitle>Information</CardTitle>
+                                <Button onClick={this.toggle}>Change Info</Button>{' '}
+                                <CardText>
+                                    Check and Change your Account Information
+                                </CardText>
+                            </Card>
+                        </Row>
+                    </Col>
+                    <hr />
+                    <hr />
+                    <hr />
+                    <Row>
+                        <Col sm="12" md={{ size: 8, offset: 2 }}>
+                            <Card body inverse color="danger" className="text-center" >
+                                <div  >
+                                    <CardTitle>Delete User</CardTitle>
+                                    <Input type="email" id="emailAddress" className="form-control" onChange={e => this.onTodoChange(e.target.value)} placeholder="Email" />
+                                    <Button id={this.state.email} onClick={this.deleteUser} >Delete User</Button>
+                                    <CardText>Can not be Undone!</CardText>
+                                </div>
+                            </Card>
+                        </Col>
+                    </Row>
+                    <hr />
+                    <hr />
                 </div>
-                </Container>
-   
-      
-    )
-}
+            </Container>
+
+
+        )
+    }
 }
 export default props => (
     <AuthContext.Consumer>
-        {auth=> <UserSettings {...props} auth={auth} />}
+        {auth => <UserSettings {...props} auth={auth} />}
     </AuthContext.Consumer>
 )
