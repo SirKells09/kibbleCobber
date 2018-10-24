@@ -6,7 +6,6 @@ class RecipeAdd extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            modal: true,
             recipeName: "",
             ingredients: "",
             cookTime: [],
@@ -16,11 +15,6 @@ class RecipeAdd extends React.Component {
         // recipes: [],
     }
 
-    toggle = () => {
-        this.setState({
-            modal: !this.state.modal
-        });
-    }
     handleSubmit = event => {
         console.log(event);
         event.preventDefault();
@@ -43,6 +37,7 @@ class RecipeAdd extends React.Component {
                 console.log(recipe)
                 this.props.updateRecipesArray()
                 console.log(this.state)
+                this.props.toggle()
             })
     }
 
@@ -61,7 +56,7 @@ class RecipeAdd extends React.Component {
 
 
 
-                <Modal isOpen={this.state.modal} size="lg" className="Modal">
+                <Modal isOpen={this.props.show} size="lg" className="Modal">
                     <ModalHeader>Edit your recipe</ModalHeader>
                     <ModalBody>
                         <Form size="lg" onSubmit={this.handleSubmit} >
@@ -105,8 +100,8 @@ class RecipeAdd extends React.Component {
                                 <Input id="notes" type="textarea" name="notes" value={this.state.notes} placeholder="enter description" onChange={this.handleChange} />
 
                             </FormGroup></Col>
-                            <Button type="submit" color="primary" size="lg" > Submit </Button>
-                            <Button color="danger" className="close" onClick={this.toggle}>Close</Button>
+                            <Button type="submit" color="primary" size="lg"  > Submit </Button>
+                            <Button color="danger" className="close" onClick={this.props.toggle}>Close</Button>
                         </Form>
                     </ModalBody>
                 </Modal>

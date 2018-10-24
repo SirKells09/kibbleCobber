@@ -21,6 +21,11 @@ class RecipeMain extends React.Component {
     }
   }
 
+  toggle = () => {
+    this.setState({
+        updatePressed: !this.state.updatePressed
+    });
+}
   componentDidMount() {
     this.fetchRecipes();
   }
@@ -44,7 +49,7 @@ class RecipeMain extends React.Component {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // "Authorization": this.props.auth.token
+        "Authorization": this.props.auth.token
       }
     }
     )
@@ -61,24 +66,25 @@ class RecipeMain extends React.Component {
       body: JSON.stringify({ recipe: { id: event.target.id } }),
       headers: new Headers({
         "Content-Type": "application/json",
-        // "Authorization": this.props.auth.token
+        "Authorization": this.props.auth.token
       })
     })
       .then((res) => this.fetchRecipes())
   }
 
   recipeUpdate = (event, recipe) => {
-    fetch(`${APIURL}/recipe/update/${recipe.id}`, {
+    console.log(this.state)
+    fetch(`/recipe/${recipe.id}`, {
       method: 'PUT',
-      body: JSON.stringify({ recipe:{   
+      body: JSON.stringify({   
         recipeName: recipe.recipeName,
         ingredients: recipe.ingredients,
         cookTime: recipe.cookTime,
         amount: recipe.amount,
-         notes: recipe.notes,} }),
+         notes: recipe.notes}),
       headers: {
         "Content-Type": 'application/json',
-        // "Authorization": this.props.auth.token
+        "Authorization": this.props.auth.token
       }
     })
       .then((recipe) => {
@@ -105,13 +111,13 @@ class RecipeMain extends React.Component {
             {recipe}
 <Col>
             {
-              this.state.addPressed ? <RecipeAdd updateRecipesArray={this.fetchRecipes} /> :
+              this.state.addPressed ? <RecipeAdd updateRecipesArray={this.fetchRecipes} show={this.state.addPressed} toggle={this.toggleAddModal}/> :
               <div></div>
             }
             </Col>
 <Col>
             {
-              this.state.updatePressed ? <RecipeUpdate t={this.state.updatePressed} update={this.recipeUpdate} recipe={this.state.recipeToUpdate} />
+              this.state.updatePressed ? <RecipeUpdate t={this.toggle} update={this.recipeUpdate} recipe={this.state.recipeToUpdate} />
               : <div></div>
             }
             </Col>
